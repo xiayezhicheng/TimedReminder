@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TimedReminderDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_alarms">没有设置闹钟</string>
+    <string name="notify_title">记得练习哦</string>
+    <string name="notify_content">中文牛才是真牛</string>
+
+</resources>

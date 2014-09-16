@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wanghao.timedreminderdemo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="19" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 闪光灯权限 -->
+	<uses-permission android:name="android.permission.FLASHLIGHT"/>
+	<!-- 振动器权限 -->
+	<uses-permission android:name="android.permission.VIBRATE"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+                
+        <activity
+            android:name="com.wanghao.timedreminderdemo.AlarmPreferencesActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.wanghao.timedreminderdemo.AlarmActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+	        <meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="com.wanghao.timedreminderdemo.AlarmActivity" />
+        </activity>  
+        <service
+            android:process="com.wanghao.timedreminderdemo.serviceProcess"
+            android:name="com.wanghao.timedreminderdemo.AlarmService"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name">
+        </service> 
+        <receiver android:name="com.wanghao.timedreminderdemo.AlarmAlertBroadcastReciever" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
