@@ -70,7 +70,7 @@ public class Alarm implements Serializable{
 		//？
 		if (alarmTime.before(Calendar.getInstance()))
 			alarmTime.add(Calendar.DAY_OF_MONTH, 1);
-		//轮询找到今天
+		//轮询找到给定日期
 		while(!Arrays.asList(getDays()).contains(Day.values()[alarmTime.get(Calendar.DAY_OF_WEEK)-1])){
 			alarmTime.add(Calendar.DAY_OF_MONTH, 1);			
 		}
