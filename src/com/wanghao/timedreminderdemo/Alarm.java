@@ -27,19 +27,19 @@ public class Alarm implements Serializable{
 		public String toString() {
 			switch(this.ordinal()){
 				case 0:
-					return "ĞÇÆÚÈÕ";
+					return "æ˜ŸæœŸæ—¥";
 				case 1:
-					return "ĞÇÆÚÒ»";
+					return "æ˜ŸæœŸä¸€";
 				case 2:
-					return "ĞÇÆÚ¶ş";
+					return "æ˜ŸæœŸäºŒ";
 				case 3:
-					return "ĞÇÆÚÈı";
+					return "æ˜ŸæœŸä¸‰";
 				case 4:
-					return "ĞÇÆÚËÄ";
+					return "æ˜ŸæœŸå››";
 				case 5:
-					return "ĞÇÆÚÎå";
+					return "æ˜ŸæœŸäº”";
 				case 6:
-					return "ĞÇÆÚÁù";
+					return "æ˜ŸæœŸå…­";
 			}
 			return super.toString();
 		}
@@ -50,7 +50,7 @@ public class Alarm implements Serializable{
 	private Boolean alarmActive = true;
 	private Calendar alarmTime = Calendar.getInstance();
 	private Day[] days = {Day.MONDAY,Day.TUESDAY,Day.WEDNESDAY,Day.THURSDAY,Day.FRIDAY,Day.SATURDAY,Day.SUNDAY};	
-	private String alarmName = "¶¨Ê±Í¨Öª";
+	private String alarmName = "å®šæ—¶é€šçŸ¥";
 	
 	public int getId() {
 		return id;
@@ -67,9 +67,10 @@ public class Alarm implements Serializable{
 	}
 	
 	public Calendar getAlarmTime() {
-		//?
+		//ï¼Ÿ
 		if (alarmTime.before(Calendar.getInstance()))
 			alarmTime.add(Calendar.DAY_OF_MONTH, 1);
+		//è½®è¯¢æ‰¾åˆ°ä»Šå¤©
 		while(!Arrays.asList(getDays()).contains(Day.values()[alarmTime.get(Calendar.DAY_OF_WEEK)-1])){
 			alarmTime.add(Calendar.DAY_OF_MONTH, 1);			
 		}
@@ -141,7 +142,7 @@ public class Alarm implements Serializable{
 	public String getRepeatDaysString() {
 		StringBuilder daysStringBuilder = new StringBuilder();
 		if(getDays().length == Day.values().length){
-			daysStringBuilder.append("Ã¿Ìì");		
+			daysStringBuilder.append("æ¯å¤©");		
 		}else{
 			Arrays.sort(getDays(), new Comparator<Day>() {
 				@Override
@@ -164,39 +165,39 @@ public class Alarm implements Serializable{
 		
 		Intent myIntent = new Intent(context, AlarmAlertBroadcastReciever.class);
 		myIntent.putExtra("alarm", this);
-		//´ÓÏµÍ³È¡µÃÒ»¸öÓÃÓÚÏòBroadcastReceiverµÄIntent¹ã²¥µÄPendingIntent¶ÔÏó
+		//ä»ç³»ç»Ÿå–å¾—ä¸€ä¸ªç”¨äºå‘BroadcastReceiverçš„Intentå¹¿æ’­çš„PendingIntentå¯¹è±¡
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 
 		AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
 		alarmManager.set(AlarmManager.RTC_WAKEUP, getAlarmTime().getTimeInMillis(), pendingIntent);					
 	}
-	//²¥±¨µÄÊ±¼ä´æÔÚÊ®ÃëÒÔÉÏÎó²î
+	//æ’­æŠ¥çš„æ—¶é—´å­˜åœ¨åç§’ä»¥ä¸Šè¯¯å·®
 	public String getTimeUntilNextAlarmMessage(){
 		long timeDifference = getAlarmTime().getTimeInMillis() - System.currentTimeMillis();
 		long days = timeDifference / (1000 * 60 * 60 * 24);
 		long hours = timeDifference / (1000 * 60 * 60) - (days * 24);
 		long minutes = timeDifference / (1000 * 60) - (days * 24 * 60) - (hours * 60);
 		long seconds = timeDifference / (1000) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-		String alert = "½«»áÓÚ ";
+		String alert = "å°†ä¼šäº ";
 		if (days > 0) {
 			alert += String.format(
-					"%dÌì%dĞ¡Ê±%d·Ö %dÃë", days,
+					"%då¤©%då°æ—¶%dåˆ† %dç§’", days,
 					hours, minutes, seconds);
 		} else {
 			if (hours > 0) {
-				alert += String.format("%dĞ¡Ê±%d·Ö %dÃë",
+				alert += String.format("%då°æ—¶%dåˆ† %dç§’",
 						hours, minutes, seconds);
 			} else {
 				if (minutes > 0) {
-					alert += String.format("%d·Ö%dÃë", minutes,
+					alert += String.format("%dåˆ†%dç§’", minutes,
 							seconds);
 				} else {
-					alert += String.format("%dÃë", seconds);
+					alert += String.format("%dç§’", seconds);
 				}
 			}
 		}
-		alert += "ºóÍ¨ÖªÄú";
+		alert += "åé€šçŸ¥æ‚¨";
 		return alert;
 	}
 	
